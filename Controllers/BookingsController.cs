@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Assignment.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Assignment.Controllers
 {
@@ -21,6 +22,13 @@ namespace Assignment.Controllers
             return View(bookingSet.ToList());
         }
 
+        public ActionResult BookingClass()
+        {
+
+            return View(db.ClassSet.ToList());
+        }
+        // get book class id
+        
         // GET: Bookings/Details/5
         public ActionResult Details(int? id)
         {
@@ -48,8 +56,13 @@ namespace Assignment.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UnitsId,ClassId,Customer_id")] Booking booking)
+        public ActionResult Create([Bind(Include = "Id,UnitsId,ClassId")] Booking booking)
         {
+            booking.Customer_id = User.Identity.GetUserId();
+            ModelState.Clear();
+            TryValidateModel(booking);
+
+
             if (ModelState.IsValid)
             {
                 db.BookingSet.Add(booking);

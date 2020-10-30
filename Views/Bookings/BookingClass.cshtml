@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Assignment.Models.Class>
+@{
+    ViewBag.Title = "BookingClass";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Book your class</h2>
+
+
+<table class="table">
+    <tr>
+            
+            @*<th>
+                @Html.DisplayNameFor(model => model.Customer_id)
+            </th>*@
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Start_Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.End_Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Units.Unit_name)
+        </th>
+
+        <th>
+            @Html.ActionLink("book", "Create")
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+     <tr>
+      <td>
+        @Html.DisplayFor(modelItem => item.Start_Time)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.End_Time)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.Units.Unit_name)
+      </td>
+
+      <td>
+        @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+        
+      </td>
+     </tr>
+    }
+
+</table>

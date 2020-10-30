@@ -29,7 +29,7 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li>@Html.ActionLink("Booking Class", "Index", "Booking")</li>
+                        <li>@Html.ActionLink("My Booking", "Index", "Bookings")</li>
                         <li>@Html.ActionLink("Send Email", "Send_Email", "Home")</li>
                         if (User.IsInRole("admin"))
                         {

@@ -17,8 +17,9 @@ namespace Assignment.Models
         public int Id { get; set; }
         public int UnitsId { get; set; }
         public int ClassId { get; set; }
-        public int Customer_id { get; set; }
-    
+        public String Customer_id { get; set; }
+
+     
         public virtual Class Class { get; set; }
     }
 }
