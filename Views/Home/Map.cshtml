@@ -22,13 +22,17 @@
             zoom: 8
         });
 
+        var marker = new mapboxgl.Marker()
+            .setLngLat([145.126600, -37.781136])
+            .addTo(map);
+
         var geojson = {
             type: 'FeatureCollection',
             features: [{
                 type: 'Feature',
                 geometry: {
                     type: 'Point',
-                    coordinates: [145.126600, -37.781136]
+                    coordinates: [147.126600, -37.781136]
                 },
                 properties: {
                     title: 'Language World',
