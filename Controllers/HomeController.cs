@@ -32,6 +32,12 @@ namespace LanguageWorld.Controllers
             return View();
         }
 
+        public ActionResult Map()
+        {
+            return View();
+        }
+
+
         public ActionResult Send_Email()
         {
             return View(new SendEmailViewModel());

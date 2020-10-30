@@ -552,6 +552,7 @@
     <Content Include="Views\Bookings\Index.cshtml" />
     <Content Include="Views\Home\Send_Email.cshtml" />
     <Content Include="Views\Bookings\BookingClass.cshtml" />
+    <Content Include="Views\Home\Map.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
