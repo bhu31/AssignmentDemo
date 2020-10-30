@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="BookingSet" EntityType="Model1.Store.BookingSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UnitsSet" EntityType="Model1.Store.UnitsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ClassSet" EntityType="Model1.Store.ClassSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UnitsClass" Association="Model1.Store.UnitsClass">
+      <End Role="Units" EntitySet="UnitsSet" />
+      <End Role="Class" EntitySet="ClassSet" />
+    </AssociationSet>
+    <AssociationSet Name="ClassBooking" Association="Model1.Store.ClassBooking">
+      <End Role="Class" EntitySet="ClassSet" />
+      <End Role="Booking" EntitySet="BookingSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="BookingSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UnitsId" Type="int" Nullable="false" />
+    <Property Name="ClassId" Type="int" Nullable="false" />
+    <Property Name="Customer_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UnitsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Unit_name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Unit_description" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClassSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Start_Time" Type="datetime" Nullable="false" />
+    <Property Name="End_Time" Type="datetime" Nullable="false" />
+    <Property Name="UnitsId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UnitsClass">
+    <End Role="Units" Type="Model1.Store.UnitsSet" Multiplicity="1" />
+    <End Role="Class" Type="Model1.Store.ClassSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Units">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Class">
+        <PropertyRef Name="UnitsId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ClassBooking">
+    <End Role="Class" Type="Model1.Store.ClassSet" Multiplicity="1" />
+    <End Role="Booking" Type="Model1.Store.BookingSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BookingSet" EntityType="Model1.Booking" />
+          <EntitySet Name="UnitsSet" EntityType="Model1.Units" />
+          <EntitySet Name="ClassSet" EntityType="Model1.Class" />
+          <AssociationSet Name="UnitsClass" Association="Model1.UnitsClass">
+            <End Role="Units" EntitySet="UnitsSet" />
+            <End Role="Class" EntitySet="ClassSet" />
+          </AssociationSet>
+          <AssociationSet Name="ClassBooking" Association="Model1.ClassBooking">
+            <End Role="Class" EntitySet="ClassSet" />
+            <End Role="Booking" EntitySet="BookingSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UnitsId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Class" Relationship="Model1.ClassBooking" FromRole="Booking" ToRole="Class" />
+          <Property Name="ClassId" Type="Int32" Nullable="false" />
+          <Property Name="Customer_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Units">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Unit_name" Type="String" Nullable="false" />
+          <Property Name="Unit_description" Type="String" Nullable="false" />
+          <NavigationProperty Name="Class" Relationship="Model1.UnitsClass" FromRole="Units" ToRole="Class" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Start_Time" Type="DateTime" Nullable="false" />
+          <Property Name="End_Time" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Units" Relationship="Model1.UnitsClass" FromRole="Class" ToRole="Units" />
+          <Property Name="UnitsId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Booking" Relationship="Model1.ClassBooking" FromRole="Class" ToRole="Booking" />
+        </EntityType>
+        <Association Name="UnitsClass">
+          <End Type="Model1.Units" Role="Units" Multiplicity="1" />
+          <End Type="Model1.Class" Role="Class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Units">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Class">
+              <PropertyRef Name="UnitsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ClassBooking">
+          <End Type="Model1.Class" Role="Class" Multiplicity="1" />
+          <End Type="Model1.Booking" Role="Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container1">
+    <EntitySetMapping Name="BookingSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Booking)">
+        <MappingFragment StoreEntitySet="BookingSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UnitsId" ColumnName="UnitsId" />
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UnitsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Units)">
+        <MappingFragment StoreEntitySet="UnitsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Unit_name" ColumnName="Unit_name" />
+          <ScalarProperty Name="Unit_description" ColumnName="Unit_description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClassSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Class)">
+        <MappingFragment StoreEntitySet="ClassSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Start_Time" ColumnName="Start_Time" />
+          <ScalarProperty Name="End_Time" ColumnName="End_Time" />
+          <ScalarProperty Name="UnitsId" ColumnName="UnitsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,43 @@
+﻿@model Assignment.Models.Class
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Class</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Start_Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start_Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.End_Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.End_Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Units.Unit_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Units.Unit_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
